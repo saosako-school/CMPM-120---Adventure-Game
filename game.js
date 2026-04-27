@@ -11,7 +11,7 @@ class Hallway extends AdventureScene {
         let mathDoor = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'math classroom');
         let englishDoor = this.doorAdd(this.w*0.1, this.w*0.1, 'doorPlaceholder', 0.08, 'english classroom');
     }
-}
+}//nijij
 
 class MathClassroom extends AdventureScene {
     constructor() {
