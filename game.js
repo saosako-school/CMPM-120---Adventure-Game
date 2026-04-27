@@ -10,18 +10,22 @@ class Hallway extends AdventureScene {
     onEnter() {
         let mathDoor = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'math classroom');
         let englishDoor = this.doorAdd(this.w*0.1, this.w*0.1, 'doorPlaceholder', 0.08, 'english classroom');
+        let chemDoor = this.doorAdd(this.w*0.2, this.w*0.2, 'doorPlaceholder', 0.08, 'chemistry classroom');
+        let orchDoor = this.doorAdd(this.w*0.4, this.w*0.4, 'doorPlaceholder', 0.08, 'orchestra classroom');
     }
-}//nijij
+}
 
 class MathClassroom extends AdventureScene {
     constructor() {
         super('math classroom', 'MathClassroom');
     }
 
-    preload() {}
+    preload() {
+        this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+    }
 
     onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.3, 'Math');
+        let hallway = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'hallway');
     }
 }
 
@@ -30,10 +34,40 @@ class EnglishClassroom extends AdventureScene {
         super('english classroom', 'EnglishClassroom');
     }
 
-    preload() {}
+    preload() {
+        this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+    }
 
     onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.3, 'English');
+        let hallway = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'hallway');
+    }
+}
+
+class ChemClassroom extends AdventureScene {
+    constructor() {
+        super('chemistry classroom', 'ChemClassroom');
+    }
+
+    preload() {
+        this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+    }
+
+    onEnter() {
+        let hallway = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'hallway');
+    }
+}
+
+class OrchestraClassroom extends AdventureScene {
+    constructor() {
+        super('orchestra classroom', 'OrchestraClassroom');
+    }
+
+    preload() {
+        this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+    }
+
+    onEnter() {
+        let hallway = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'hallway');
     }
 }
 
@@ -164,7 +198,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Hallway, MathClassroom, EnglishClassroom],
+    scene: [Hallway, MathClassroom, EnglishClassroom, ChemClassroom, OrchestraClassroom],
     title: "Adventure Game",
 });
 
