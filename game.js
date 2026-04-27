@@ -5,6 +5,7 @@ class Hallway extends AdventureScene {
 
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+        this.load.image('upButtonPlaceholder', 'images/Placeholders/triangle.png');
     }
 
     onEnter() {
@@ -12,6 +13,55 @@ class Hallway extends AdventureScene {
         let englishDoor = this.doorAdd(this.w*0.1, this.w*0.1, 'doorPlaceholder', 0.08, 'english classroom');
         let chemDoor = this.doorAdd(this.w*0.2, this.w*0.2, 'doorPlaceholder', 0.08, 'chemistry classroom');
         let orchDoor = this.doorAdd(this.w*0.4, this.w*0.4, 'doorPlaceholder', 0.08, 'orchestra classroom');
+
+        let tester = this.add.image(this.w*0.6, this.w*0.6, 'upButtonPlaceholder')
+        .setScale(0.8)
+        .setInteractive()
+        .on('pointerdown', () => {
+            let val1 = 0;
+            let val2 = 0;
+            let val3 = 0;
+
+            let codeInput = this.add.text(this.w * 0.1, this.w * 0.1, `${val1} ${val2} ${val3}`, {font: '400px Arial'});
+            let up1 = this.add.image(this.w * 0.15, this.w * 0.1, 'upButtonPlaceholder')
+            .setScale(0.04)
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (val1 == 9){
+                    val1 = 0;
+                }
+                else{
+                    val1 += 1;
+                }
+                codeInput.setText(`${val1} ${val2} ${val3}`);
+            });
+            
+            let up2 = this.add.image(this.w * 0.33, this.w * 0.1, 'upButtonPlaceholder')
+            .setScale(0.04)
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (val2 == 9){
+                    val2 = 0;
+                }
+                else{
+                    val2 += 1;
+                }
+                codeInput.setText(`${val1} ${val2} ${val3}`);
+            });
+
+            let up3 = this.add.image(this.w * 0.5, this.w * 0.1, 'upButtonPlaceholder')
+            .setScale(0.04)
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (val3 == 9){
+                    val3 = 0;
+                }
+                else{
+                    val3 += 1;
+                }
+                codeInput.setText(`${val1} ${val2} ${val3}`);
+            });
+        });
     }
 }
 

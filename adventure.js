@@ -201,6 +201,50 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
+    enterCode(numInput, [var1 = 3, var2 = 4, var3 = 1, var4 = 0]) {
+        //TODO: make down button that decrements, make enter button and add functionality for correct/incorrect inputs
+        // and add stuff that makes codes save and not update when all this junk is not on screen
+        let codeDisplay = this.add.text(this.w * 0.1, this.w * 0.1, `${var1} ${var2} ${var3}`, {font: '400px Arial'});
+        let up1 = this.add.image(this.w * 0.15, this.w * 0.1, 'upButtonPlaceholder')
+        .setScale(0.04)
+        .setInteractive()
+        .on('pointerdown', () => {
+            if (val1 == 9){
+                val1 = 0;
+            }
+            else{
+                val1 += 1;
+            }
+            codeInput.setText(`${var1} ${var2} ${var3}`);
+        });
+            
+        let up2 = this.add.image(this.w * 0.33, this.w * 0.1, 'upButtonPlaceholder')
+        .setScale(0.04)
+        .setInteractive()
+        .on('pointerdown', () => {
+            if (val2 == 9){
+                val2 = 0;
+            }
+            else{
+                val2 += 1;
+            }
+            codeInput.setText(`${var1} ${var2} ${var3}`);
+        });
+
+        let up3 = this.add.image(this.w * 0.5, this.w * 0.1, 'upButtonPlaceholder')
+        .setScale(0.04)
+        .setInteractive()
+        .on('pointerdown', () => {
+            if (val3 == 9){
+                val3 = 0;
+            }
+            else{
+                val3 += 1;
+            }
+            codeInput.setText(`${var1} ${var2} ${var3}`);
+        });
+    }
+
     doorAdd(xPos, yPos, doorImage, scale, key) {
         return this.add.image(xPos, yPos, doorImage)
         .setScale(scale)
