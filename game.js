@@ -6,15 +6,25 @@ class Hallway extends AdventureScene {
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
         this.load.image('upButtonPlaceholder', 'images/Placeholders/triangle.png');
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
     }
 
     onEnter() {
-        let mathDoor = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'math classroom');
+        let mathDoor = this.doorAdd(this.s*20, this.w*0.3, 'doorPlaceholder', 0.08, 'math classroom');
         let englishDoor = this.doorAdd(this.w*0.1, this.w*0.1, 'doorPlaceholder', 0.08, 'english classroom');
         let chemDoor = this.doorAdd(this.w*0.2, this.w*0.2, 'doorPlaceholder', 0.08, 'chemistry classroom');
         let orchDoor = this.doorAdd(this.w*0.4, this.w*0.4, 'doorPlaceholder', 0.08, 'orchestra classroom');
+        let exitDoor = this.doorAdd(this.w*0.15, this.w*0.15, 'doorPlaceholder', 0.08, 'exit door');
 
-        let tester = this.add.image(this.w*0.6, this.w*0.6, 'upButtonPlaceholder')
+        let testerCodeEnter = this.add.bitmapText({
+            x: this.s*50, 
+            y: this.s*50, 
+            key: 'pixelFont',
+            text: 'help', 
+            align: 1,
+        })
+        .setFontSize(400);
+        /*let tester = this.add.image(this.w*0.6, this.w*0.6, 'upButtonPlaceholder')
         .setScale(0.8)
         .setInteractive()
         .on('pointerdown', () => {
@@ -61,7 +71,7 @@ class Hallway extends AdventureScene {
                 }
                 codeInput.setText(`${val1} ${val2} ${val3}`);
             });
-        });
+        });*/
     }
 }
 
@@ -72,6 +82,7 @@ class MathClassroom extends AdventureScene {
 
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
     }
 
     onEnter() {
@@ -86,6 +97,7 @@ class EnglishClassroom extends AdventureScene {
 
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
     }
 
     onEnter() {
@@ -100,6 +112,7 @@ class ChemClassroom extends AdventureScene {
 
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
     }
 
     onEnter() {
@@ -114,10 +127,27 @@ class OrchestraClassroom extends AdventureScene {
 
     preload() {
         this.load.image('doorPlaceholder', 'images/Placeholders/placeholderDoor.png');
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
     }
 
     onEnter() {
         let hallway = this.doorAdd(this.w*0.3, this.w*0.3, 'doorPlaceholder', 0.08, 'hallway');
+    }
+}
+
+class ExitDoor extends AdventureScene {
+    constructor() {
+        super('exit door', 'ExitDoor');
+    }
+
+    preload() {
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
+        //loads in all the bars, locks, etc
+    }
+
+    onEnter() {
+        //make back button
+        //add locks and bars
     }
 }
 
@@ -248,7 +278,8 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Hallway, MathClassroom, EnglishClassroom, ChemClassroom, OrchestraClassroom],
+    //the dimensions are 16:9
+    scene: [Hallway, MathClassroom, EnglishClassroom, ChemClassroom, OrchestraClassroom, ExitDoor],
     title: "Adventure Game",
 });
 

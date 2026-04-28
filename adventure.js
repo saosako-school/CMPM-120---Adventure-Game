@@ -24,6 +24,11 @@ class AdventureScene extends Phaser.Scene {
      */
     init(data) {
         this.inventory = data.inventory || [];
+        this.codes = data.codes || {
+            filingCabinet: [0, 0, 0],
+            lockbox: [0, 0, 0],
+            locker: ['A', 'A', 'A', 'A'],
+        };
     }
 
     /**
@@ -201,10 +206,31 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
-    enterCode(numInput, [var1 = 3, var2 = 4, var3 = 1, var4 = 0]) {
+    fadeDrop(arrayTargets) {
+        this.add.tweens({
+            targets: arrayTargets,
+            y: `-=${this.w * 0.3}`,
+            alpha: 0
+        })
+        //disable interactive
+    }
+
+    updateDisplayCode(codeArray, display) {
+        let codeDisplayStr = ``;
+        for (let i = 0; i < codeArray.length; ++i) {
+            if (i != 0){
+                codeDisplayStr = ` `;
+            }
+            codeDisplayStr += `${codeArray[i]}`;
+        }
+        display.setText(codeDisplayStr);
+    }
+
+    enterCode(numInput, [var1 = 3, var2 = 4, var3 = 1, var4 = 0], codeArray, codeDisplay) {
         //TODO: make down button that decrements, make enter button and add functionality for correct/incorrect inputs
         // and add stuff that makes codes save and not update when all this junk is not on screen
-        let codeDisplay = this.add.text(this.w * 0.1, this.w * 0.1, `${var1} ${var2} ${var3}`, {font: '400px Arial'});
+        //let codeDisplay = this.add.text(this.w * 0.1, this.w * 0.1, `${var1} ${var2} ${var3}`, {font: '400px Arial'});
+        this.updateDisplayCode(codeArray, codeDisplay);//add display arg
         let up1 = this.add.image(this.w * 0.15, this.w * 0.1, 'upButtonPlaceholder')
         .setScale(0.04)
         .setInteractive()
@@ -215,8 +241,51 @@ class AdventureScene extends Phaser.Scene {
             else{
                 val1 += 1;
             }
-            codeInput.setText(`${var1} ${var2} ${var3}`);
+            codeInput.setText(`${var1} ${var2} ${var3}`); //codeInput is basically whatever is displaying the nums/letters
         });
+
+        //add to string of some sort later
+        
+        /* 
+        let codeDisplayStr = ``;
+        for (let i = 0; i < codeArray.length; ++i) {
+            if (i != 0){
+                codeDisplayStr += ` `
+            }
+            codeDisplayStr += `${codeArray[i]}`;
+        }
+
+        for (let i = 0; i < codeArray.length; ++i) {
+            this.add.image()
+            .setScale()
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (codeArray[i] == 9){
+                    codeArray[i] = 0;
+                }
+                else {
+                    codeArray[i] += 1;
+                }
+            });
+
+        }
+
+        codeArray.forEach((num) => {
+            
+            this.add.image()
+            .setScale()
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (num == 9){
+                    num = 0;
+                }
+                else {
+                    num += 1;
+                }
+            });
+        });
+        
+        */
             
         let up2 = this.add.image(this.w * 0.33, this.w * 0.1, 'upButtonPlaceholder')
         .setScale(0.04)
@@ -264,7 +333,10 @@ class AdventureScene extends Phaser.Scene {
     gotoScene(key) {
         this.cameras.main.fade(this.transitionDuration, 0, 0, 0);
         this.time.delayedCall(this.transitionDuration, () => {
-            this.scene.start(key, { inventory: this.inventory });
+            this.scene.start(key, {
+                inventory: this.inventory,
+                codes: this.codes,
+            });
         });
     }
 
