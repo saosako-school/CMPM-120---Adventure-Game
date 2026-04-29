@@ -40,6 +40,11 @@ class AdventureScene extends Phaser.Scene {
         this.name = name;
     }
 
+    preload() {
+        this.load.bitmapFont('pixelFont', 'bitmap font/minogram_6x10.png', 'bitmap font/minogram_6x10.xml');
+        this.sceneSpecificLoad();
+    }
+
     /**
      * Phaser lifecycle: called once when the scene starts.
      * Lays out the UI, then invokes {@link AdventureScene#onEnter}.
@@ -55,23 +60,20 @@ class AdventureScene extends Phaser.Scene {
         this.h = this.game.config.height;
         /** @type {number} UI spacing unit in scaled pixels (1% of width). Use multiples of `this.s` for text sizes, margins, etc. */
         this.s = this.game.config.width * 0.01;
+        this.sw = this.game.config.width * 0.003125;
+        this.sh = this.game.config.height/180;
 
         this.cameras.main.setBackgroundColor('#444');
         this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
 
         this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
-        this.add.text(this.w * 0.75 + this.s, this.s)
-            .setText(this.name)
-            .setStyle({ fontSize: `${3 * this.s}px` })
-            .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
+        this.add.bitmapText(this.w * 0.75 + this.s, this.s, 'pixelFont', this.name, 3 * this.s, 0)
+            .setMaxWidth(this.w * 0.25 - 2 * this.s);
 
-        this.messageBox = this.add.text(this.w * 0.75 + this.s, this.h * 0.33)
-            .setStyle({ fontSize: `${2 * this.s}px`, color: '#eea' })
-            .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
+        this.messageBox = this.add.bitmapText(this.w * 0.75 + this.s, this.h * 0.33, 'pixelFont', '', 2*this.s, 0)
+            .setMaxWidth(this.w * 0.25 - 2 * this.s);
 
-        this.inventoryBanner = this.add.text(this.w * 0.75 + this.s, this.h * 0.66)
-            .setStyle({ fontSize: `${2 * this.s}px` })
-            .setText("Inventory")
+        this.inventoryBanner = this.add.bitmapText(this.w * 0.75 + this.s, this.h * 0.66, 'pixelFont', 'Inventory', 2 * this.s, 0)
             .setAlpha(0);
 
         this.inventoryTexts = [];
@@ -355,5 +357,9 @@ class AdventureScene extends Phaser.Scene {
      */
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
+    }
+
+    sceneSpecificLoad() {
+        console.warn('This AdventureScene did not implement sceneSpecificLoad():', this.constructor.name);
     }
 }
